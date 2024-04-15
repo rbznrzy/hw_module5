@@ -4,9 +4,8 @@ describe('Checking that website is loaded', () => {
       cy.visit('https://sqlverifier-live-6e21ca0ed768.herokuapp.com/')
     })
   
-    it('Nav-bar displaying', () => {
+    it('Nav-bar is displaying', () => {
       cy.get('[data-cy="navbar"]').should('be.visible')
     })
-
   })
   
