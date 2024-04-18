@@ -1,9 +1,22 @@
+var env = Cypress.env("environment");
+var login = "3hrsforsleep"
+var password = "123456789"
 
-describe('', () => {
+describe('Header-links checking', () => {
+
+  if (env == "staging") {
+    login = "3hrsforsleep";
+    password = "123456789";
+  } else {
+    login = "3hrsforsleep";
+    password = "tydamurabepaw3*";
+  }
+
+
     beforeEach(() => {
       cy.visit('/login')
-      cy.get('#username').click().type('3hrsforsleep'),
-      cy.get('#password').click().type('tydamurabepaw3*'),
+      cy.get('#username').click().type(login),
+      cy.get('#password').click().type(password),
       cy.get('[data-cy="submit"]').click(),
       cy.get('[data-cy="navbar"]').should('be.visible')
     })

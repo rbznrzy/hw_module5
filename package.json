@@ -7,9 +7,10 @@
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
     "cy:dashboard": "npx cypress run --record --key 5fa46377-d568-4abf-9672-d0c6914e5fd8",
-    "cy:run-header_link": "npx cypress run --browser electron --spec 'cypress/e2e/header_link.cy.js'",
-    "cy:run-website_loading": "npx cypress run --browser chrome --spec 'cypress/e2e/website_loaded.cy.js'",
-    "cy:run:browsers": "npm run cy:run-header_link && npm run cy:run-website_loading --record --key 5fa46377-d568-4abf-9672-d0c6914e5fd8"
+    "cy:run-2": "npx cypress run --browser electron --spec 'cypress/e2e/header_link.cy.js'  --record --key 5fa46377-d568-4abf-9672-d0c6914e5fd8",
+    "cy:run-1": "npx cypress run --browser chrome --spec 'cypress/e2e/website_loaded.cy.js'",
+    "cy:run:browsers": "npm run cy:run-2 && npm run cy:run-1 --record --key 5fa46377-d568-4abf-9672-d0c6914e5fd8",
+    "cy:staging": "npx cypress run --config-file staging.config.js --record --key 5fa46377-d568-4abf-9672-d0c6914e5fd8"
   },
   "author": "",
   "license": "ISC",
