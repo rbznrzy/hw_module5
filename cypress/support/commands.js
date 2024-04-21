@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/** Login */
+Cypress.Commands.add('loginOnUi', (login, password) => { 
+    cy.get('#username').click().type(login),
+    cy.get('#password').click().type(password),
+    cy.get('[data-cy="submit"]').click(),
+    cy.get('[data-cy="navbar"]').should('be.visible')
+ });
+
+ /** displaying selector */
+Cypress.Commands.add('displayingElement', (selector) => { 
+    cy.get(selector).should('be.visible')
+});
+
