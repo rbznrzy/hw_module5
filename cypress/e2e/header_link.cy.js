@@ -1,6 +1,6 @@
-var env = Cypress.env("environment");
-var login = "3hrsforsleep"
-var password = "123456789"
+let env = Cypress.env("environment");
+let login = "3hrsforsleep"
+let password = "123456789"
 
 describe('Header-links checking', () => {
 
@@ -18,7 +18,7 @@ describe('Header-links checking', () => {
       cy.loginOnUi(login, password)
     })
 
-    it('Click Main Button', () => {
+    it.only('Click Main Button', () => {
       cy.displayingElement('.nav-item [aria-current="page"]'),
       cy.get('.nav-item [aria-current="page"]').click(),
       cy.displayingElement('.nav-item [aria-current="page"]')

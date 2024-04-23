@@ -1,0 +1,15 @@
+[
+    {
+        "element": "#username.is-invalid"
+    },
+    {
+        "element": "#email.is-invalid"
+    },
+    {
+        "element": "#firstPassword.is-invalid"
+    },
+    {
+        "element": "#secondPassword.is-invalid"
+    }
+
+]
