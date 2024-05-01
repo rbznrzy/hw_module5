@@ -1,53 +1,73 @@
+import { loginPageClass } from "../fixture/pages/loginPage";
+import { commonMethodsClass } from "../fixture/common/commonMethods";
+import { faker } from "@faker-js/faker";
+import { navBarElements } from "../fixture/pages/navBarPage";
+
+let loginData = require("../fixture/data/loginData.json");
+let passwordData = require("../fixture/data/passwordData.json");
+let validationTextData = require("../fixture/data/validationTextData.json");
+let loginPage = new loginPageClass();
+let navBarPage = new navBarElements();
+let randomLogin = faker.internet.userName();
+let randomPassword = faker.internet.password();
+
 beforeEach(() => {
-    cy.visit('/login')
-})
+  cy.visit("/login");
+});
 
-let loginData = require('../fixture/loginData.json');
-let passwordData = require('../fixture/passwordData.json');
+describe("Логин с существующими валидными данными", () => {
+  it("Логин с существующими валидными данными", () => {
+    loginPage.loginOnUi(loginData[0].login, passwordData[0].password);
+    navBarPage.elements.headerTabs()
+    .should("be.visible");
+  });
+});
 
-describe('Логин с существующими валидными данными', () => {
-it('Логин с существующими валидными данными', () => {
-    cy.loginOnUi(loginData[0].login, passwordData[0].password);
-    cy.displayingElement('.collapse');
-})
-})
+describe("Проверка поля логина", () => {
+  it("Логин с несуществующим логином", () => {
+    loginPage.loginOnUi(randomLogin, randomPassword);
+    loginPage.elements.errorAlert()
+    .should("be.visible");
+  });
 
-describe('Проверка поля логина', () => {
-    it('Логин с несуществующим логином', () => {
-        cy.loginOnUi(loginData[1].login, passwordData[0].password);
-        cy.displayingElement('[data-cy="loginError"]');
-    })
+  it("Логин c пустым полем логина", () => {
+    loginPage.elements.passwordField().click();
+    loginPage.elements.validationField()
+      .should("be.visible")
+      .contains(validationTextData.emptyUserNameValidation);
+  });
 
-    it('Логин c пустым полем логина', () => {
-        cy.clickSelector('[name="password"]');
-        cy.displayingElement('.invalid-feedback').contains('Username cannot be empty!');
-    })
-    
-    it('Логин c пробелом в поле логина', () => {
-        cy.loginOnUi(loginData[2].login, passwordData[0].password);
-        cy.displayingElement('[data-cy="loginError"]');
-})
-})
+  it("Логин c пробелом в поле логина", () => {
+    loginPage.loginOnUi(loginData[2].login, randomPassword);
+    loginPage.elements.errorAlert()
+    .should("be.visible");
+  });
+});
 
-describe('Проверка поля ввода пароля', () => {
-    it('Логин с несуществующим паролем', () => {
-        cy.loginOnUi(loginData[0].login, passwordData[1].password);
-        cy.displayingElement('[data-cy="loginError"]');
-    })
+describe("Проверка поля ввода пароля", () => {
+  it("Логин с несуществующим паролем", () => {
+    loginPage.loginOnUi(randomLogin, passwordData[1].password);
+    loginPage.elements.errorAlert()
+    .should("be.visible");
+  });
 
-    it('Логин c пустым полем пароля', () => {
-        cy.clickSelector('[name="password"]');
-        cy.clickSelector('[data-cy="submit"]');
-        cy.get('.invalid-feedback').contains('Password cannot be empty!');
-    })
-    it('Логин с паролем менее 4 символов', () => {
-        cy.loginOnUi(loginData[1].login, passwordData[2].password);
-        cy.displayingElement('[data-cy="loginError"]');
-        cy.displayingElement('.Toastify__toast-body');
-}),
-    it('Логин c пробелом в поле ввода логина', () => {
-        cy.loginOnUi(loginData[1].login, passwordData[3].password);
-        cy.displayingElement('[data-cy="loginError"]');
-
-})
-})
+  it("Логин c пустым полем пароля", () => {
+    loginPage.elements.passwordField().click();
+    loginPage.elements.submitLoginButton().click();
+    loginPage.elements.validationField()
+      .should("be.visible")
+      .contains(validationTextData.emptyPasswordValidation);
+  });
+  it("Логин с паролем менее 4 символов", () => {
+    loginPage.loginOnUi(loginData[1].login, passwordData[2].password);
+    loginPage.elements.errorAlert()
+    .should("be.visible");
+    loginPage.elements.temporaryToast()
+    .should("be.visible");
+  }),
+    it("Логин c пробелом в поле ввода логина", () => {
+      loginPage.loginOnUi(loginData[1].login, passwordData[3].password);
+      loginPage.elements.errorAlert()
+      .should("be.visible");
+    });
+});

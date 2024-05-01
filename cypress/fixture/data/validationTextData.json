@@ -1,0 +1,11 @@
+{
+    "validationUserNameText": "Your username is invalid.",
+    "minCharactersValidationEmailText": "Your email is required to be at least 5 characters.",
+    "validationEmailText": "Your email is invalid.",
+    "requiredValidationEmailText": "Your email is required.",
+    "minCharactersValidationPasswordText": "Your password is required to be at least 4 characters.",
+    "minCharactersValidationConfirmPasswordText": "Your confirmation password is required to be at least 4 characters.",
+    "notMatchedValidationPasswordText": "The password and its confirmation do not match!",
+    "emptyPasswordValidation": "Password cannot be empty!",
+    "emptyUserNameValidation": "Username cannot be empty!"
+}

@@ -1,3 +1,6 @@
+import { navBarElements } from "../fixture/pages/navBarPage"
+
+let navBarPage = new navBarElements();
 
 describe('Checking that website is loaded', () => {
     before(() => {
@@ -5,7 +8,7 @@ describe('Checking that website is loaded', () => {
     })
   
     it('Nav-bar is displaying', () => {
-      cy.get('[data-cy="navbar"]').should('be.visible')
+      navBarPage.elements.navBar().should('be.visible')
     })
   })
   
