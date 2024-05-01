@@ -1,0 +1,8 @@
+{
+    "userNameField": "#username",
+    "passwordField": "#password",
+    "submitButton": "[data-cy='submit']",
+    "errorAlert": "[data-cy='loginError']",
+    "validationField": ".invalid-feedback",
+    "temporaryToast": ".Toastify__toast-body"
+}

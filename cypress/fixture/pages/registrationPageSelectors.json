@@ -1,0 +1,8 @@
+{
+  "userNameField": "#username",
+  "emailField": "#email",
+  "passwordField": "#firstPassword",
+  "confirmPasswordField": "#secondPassword",
+  "registerSubmitButton": "#register-submit",
+  "validationField": ".invalid-feedback"
+}

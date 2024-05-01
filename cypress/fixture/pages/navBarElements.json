@@ -1,0 +1,12 @@
+{
+    "headerTabs": "#header-tabs",
+    "mainButton": ".nav-item [aria-current='page']",
+    "entityMenu": "#entity-menu",
+    "tasksbutton": "#entity-menu [role='menuitem']",
+    "docsMenu": "#docs-menu",
+    "apiButton": "#docs-menu [role='menuitem']",
+    "localizationButton": "[data-icon='flag']",
+    "menuButton": "[role='menu'",
+    "accountMenu": "#account-menu",
+    "adminMenu": "#admin-menu"
+}

@@ -24,35 +24,67 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
- /** Отображение селектора */
- Cypress.Commands.add('displayingElement', (selector) => { 
-    cy.get(selector).should('be.visible')
+
+let loginPageSelectors = require('../fixture/pages/loginPageSelectors.json')
+let registrationPageSelectors = require('../fixture/pages/registrationPageSelectors.json')
+let navBarElements = require('../fixture/pages/navBarElements.json')
+/** Отображение селектора */
+Cypress.Commands.add("displayingElement", (selector) => {
+  cy.get(selector).should("be.visible");
 });
 
 /** Нажатие на селектор */
-Cypress.Commands.add('clickSelector', (selector) =>{
+Cypress.Commands.add("clickSelector", (selector) => {
     cy.get(selector).click();
-})
+});
 
 /** Ввод текста в селектор */
-Cypress.Commands.add('typeText', (selector, text) => {
-    cy.get(selector).click().type(text);
-})
+Cypress.Commands.add("typeText", (selector, text) => {
+    cy.get(selector).type(text);
+});
 
 /** Login */
-Cypress.Commands.add('loginOnUi', (login, password) => { 
-    cy.typeText('#username', login),
-    cy.typeText('#password', password),
-    cy.clickSelector('[data-cy="submit"]')
- });
+Cypress.Commands.add("loginOnUi", (login, password) => {
+    cy.typeText(loginPageSelectors.userNameField, login),
+    cy.typeText(loginPageSelectors.passwordField, password),
+    cy.clickSelector(loginPageSelectors.submitButton);
+});
 
- /** Registration */
-Cypress.Commands.add('regOnUi', (login, email, password, confirmPass) => {
-    cy.typeText('#username', login),
-    cy.typeText('#email', email),
-    cy.typeText('#firstPassword', password),
-    cy.typeText('#secondPassword', confirmPass),
-    cy.clickSelector('#register-submit')
- });
+/** Registration */
+Cypress.Commands.add("regOnUi", (login, email, password, confirmPass) => {
+    cy.typeText(registrationPageSelectors.userNameField, login),
+    cy.typeText(registrationPageSelectors.emailField, email),
+    cy.typeText(registrationPageSelectors.passwordField, password),
+    cy.typeText(registrationPageSelectors.confirmPasswordField, confirmPass),
+    cy.clickSelector(registrationPageSelectors.registerSubmitButton);
+});
 
 
+/** Deleting User */
+Cypress.Commands.add("deletingUser", (userName) => {
+    cy.request({
+        method: "POST",
+        url: "api/authenticate",
+        body: {
+            username: "admin_automation",
+            password: "admin_automation",
+            rememberMe: false
+        },
+    }).then((response) => {
+        const authorizationHeader = response.body.id_token;
+        cy.request({
+            method: "GET",
+            url: "api/account",
+            headers: {
+              Authorization: `Bearer ${authorizationHeader}`
+            }
+        });
+        cy.request({
+            method: "DELETE",
+            url: `api/admin/users/${userName}`,
+            headers: {
+              Authorization: `Bearer ${authorizationHeader}`
+            }
+        });
+    });
+});
